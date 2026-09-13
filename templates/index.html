@@ -1,75 +1,22 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>School Attendance System</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Obsidian Labyrinth</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>🏫 School Attendance System</h1>
-            <p>Track student attendance and notify parents automatically</p>
-        </header>
-
-        <div class="tabs">
-            <button class="tab-btn active" onclick="switchTab('register')">Register Student</button>
-            <button class="tab-btn" onclick="switchTab('attendance')">Mark Attendance</button>
-            <button class="tab-btn" onclick="switchTab('students')">View Students</button>
-        </div>
-
-        <!-- Register Student Tab -->
-        <div id="register-tab" class="tab-content active">
-            <div class="card">
-                <h2>Register New Student</h2>
-                <form id="register-form">
-                    <div class="form-group">
-                        <label for="student-name">Student Name</label>
-                        <input type="text" id="student-name" name="name" required placeholder="Enter student name">
-                    </div>
-                    <div class="form-group">
-                        <label for="roll-number">Roll Number</label>
-                        <input type="text" id="roll-number" name="roll_number" required placeholder="Enter roll number">
-                    </div>
-                    <div class="form-group">
-                        <label for="class-name">Class</label>
-                        <input type="text" id="class-name" name="class" required placeholder="Enter class (e.g., 10th Grade)">
-                    </div>
-                    <div class="form-group">
-                        <label for="parent-email">Parent Email</label>
-                        <input type="email" id="parent-email" name="parent_email" required placeholder="Enter parent's email address">
-                    </div>
-                    <button type="submit" class="btn btn-primary">Register Student</button>
-                </form>
-                <div id="register-message" class="message"></div>
-            </div>
-        </div>
-
-        <!-- Mark Attendance Tab -->
-        <div id="attendance-tab" class="tab-content">
-            <div class="card">
-                <h2>Mark Attendance</h2>
-                <p class="date-display" id="current-date"></p>
-                <div id="attendance-list">
-                    <p class="loading">Loading students...</p>
-                </div>
-                <button onclick="submitAttendance()" class="btn btn-success">Submit Attendance</button>
-                <div id="attendance-message" class="message"></div>
-            </div>
-        </div>
-
-        <!-- View Students Tab -->
-        <div id="students-tab" class="tab-content">
-            <div class="card">
-                <h2>Registered Students</h2>
-                <div id="students-list">
-                    <p class="loading">Loading students...</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <script src="{{ url_for('static', filename='script.js') }}"></script>
-</body>
-</html>
+  <main class="game-shell" aria-label="Obsidian Labyrinth maze game">
+    <div id="scene" class="scene" aria-label="3D maze viewport"></div><div class="vignette"></div>
+    <header class="topbar"><div class="brand"><span class="brand-mark">◇</span><div><p>OBSIDIAN</p><h1>LABYRINTH</h1></div></div><div class="mission"><span class="status-dot"></span><span>SECTOR 07 // ACTIVE</span></div><button id="pauseButton" class="icon-button" aria-label="Pause game">Ⅱ</button></header>
+    <section class="hud hud-left" aria-label="Mission status"><div class="hud-label">MISSION <span>01</span></div><h2>Find the <em>way out.</em></h2><p class="objective">Collect all signal shards<br>and reach the extraction gate.</p><div class="progress-block"><div class="progress-head"><span>SHARDS RECOVERED</span><strong id="shardCount">0 / 3</strong></div><div class="progress-track"><div id="progressBar" class="progress-bar"></div></div></div><div class="timer"><span class="timer-icon">◷</span><span id="timer">00:00</span><small>ELAPSED</small></div></section>
+    <section class="hud hud-right" aria-label="Controls and map"><div class="map-card"><div class="map-head"><span>PROXIMITY MAP</span><span class="map-signal">● LIVE</span></div><canvas id="miniMap" width="180" height="180" aria-label="Top down maze map"></canvas><div class="map-key"><span><i class="key-player"></i> YOU</span><span><i class="key-shard"></i> SHARD</span><span><i class="key-exit"></i> EXIT</span></div></div><div class="controls"><div class="hud-label">NAVIGATION</div><div class="key-row"><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd><span>MOVE</span></div><div class="key-row"><kbd>↑</kbd><kbd>←</kbd><kbd>↓</kbd><kbd>→</kbd><span>OR ARROW KEYS</span></div></div></section>
+    <div id="startCard" class="start-card"><div class="eyebrow">A SIGNAL LOST IN THE DARK</div><h2>Enter the<br><span>labyrinth.</span></h2><p>Three shards. One exit. No map but your instinct.</p><button id="startButton" class="primary-button">BEGIN MISSION <span>→</span></button></div>
+    <div id="pauseCard" class="modal-card hidden"><div class="eyebrow">MISSION PAUSED</div><h2>Take a breath.</h2><button id="resumeButton" class="primary-button">RESUME <span>→</span></button><button id="restartButton" class="text-button">RESTART MISSION</button></div>
+    <div id="winCard" class="modal-card hidden"><div class="eyebrow">EXTRACTION COMPLETE</div><h2>You found<br><span>the signal.</span></h2><p id="winStats">Mission complete.</p><button id="againButton" class="primary-button">PLAY AGAIN <span>→</span></button></div><div class="floor-note">DEPTH: 7.2KM <span>//</span> THREAT LEVEL: LOW</div>
+  </main><script src="https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js"></script><script src="{{ url_for('static', filename='script.js') }}"></script>
+</body></html>
